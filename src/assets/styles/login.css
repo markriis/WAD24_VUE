@@ -1,0 +1,105 @@
+
+.main {
+    display: flex;
+    background-color: #aaa;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-align: center;
+    padding: 80px;
+    background-color: #efecec;
+    border-radius: 10px;
+    box-sizing: border-box;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 5px gray;
+
+}
+
+/*
+Descendant selector:
+*/
+.form h3 {
+    line-height: 1.5;
+    margin-bottom: 20px;
+} 
+/*
+Adjacent Sibling Selector - targeting the element right after h3
+*/
+
+h3 + p {
+    color: rgb(112, 133, 102);
+}
+/*
+ID selector
+*/
+
+#email, #password {
+    border-radius: 10px;
+    margin: 5px;
+    padding: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 5px rgb(99, 99, 99);
+}
+
+.forget {
+    color: rgb(112, 133, 102);
+    margin-top: 10px;
+}
+
+.login-button {
+    background-color: rgb(78, 105, 78);
+    color: rgb(196, 192, 192);
+    padding: 7px;
+    border-radius: 5px;
+    margin: 10px;
+
+}
+
+.login-button:hover {
+    background-color: rgb(185, 189, 185);
+    color: rgb(73, 72, 72);
+}
+
+.input-container:has( input:placeholder-shown )::after {
+    content: attr( name ) ' is required';
+    display: flex;
+    justify-content: center;
+
+    background: rgb(196, 192, 192);
+    padding: inherit;
+    margin: 0 5px;
+    width: 100%;
+
+    padding: 5px;
+
+    /* use padding in width calc */
+    box-sizing: border-box;
+
+    border-radius: 5px;
+
+}
+
+@media (max-width: 1024px) {
+    .form {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+@media (max-width: 768px) {
+    .form {
+        padding: 30px;
+        font-size:14px;
+    }
+    .login-button {
+        width: 90%;
+    }
+}

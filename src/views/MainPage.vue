@@ -10,7 +10,10 @@
           v-for="(post, index) in posts"
           :key="index"
           :post="post"
+          :postId="index"
         />
+
+        <button id="resetLikes" @click="resetLikes">Reset likes</button>
       </div>
     </div>
 
@@ -35,8 +38,22 @@ export default {
       return this.$store.getters.allPosts; 
     },
   },
+  methods: {
+    resetLikes( ) {
+      this.$store.commit( "resetLikes" )
+    }
+  }
 };
 </script>
 
-<style>
+<style scoped>
+#resetLikes {
+  padding: 0.2rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: .6rem;
+  background: #87b3e9;
+  cursor: pointer;
+  width: fit-content;
+}
 </style>

@@ -8,7 +8,7 @@
       <p>{{ post.content }}</p>
 
       <div class="like-section">
-          <img :src=post.likeIcon alt="Like Icon">
+          <img :src=post.likeIcon alt="Like Icon" @click="likePost">
           <!-- ternary to add an s to like if the like count isnt 1 -->
           <p>{{ post.likes }} like{{ post.likes === 1 ? '' : 's' }}</p>
       </div>
@@ -20,7 +20,13 @@
     name: 'PostComponent',
     props: {
       post: Object,
+      postId: Number
     },
+    methods: {
+      likePost( ) {
+        this.$store.dispatch( "likePostAct", { postId : this.postId } )
+      }
+    }
   };
   </script>
   

@@ -32,7 +32,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 /* YESS & SELECTOR GOD BLESS VUE */
 .signup-form-container {
@@ -55,6 +55,7 @@ form#signup-form {
     border: none;
     border-radius: .6rem;
     background: #87b3e9;
+    cursor: pointer;
   }
 }
 

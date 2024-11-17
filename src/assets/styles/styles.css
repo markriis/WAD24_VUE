@@ -20,6 +20,11 @@ body {
     padding: 20px;
     background-color: rgb(242, 242, 242);
     border: 2px solid #b5a3a3;
+
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    align-items: center;
 }
 
 header {

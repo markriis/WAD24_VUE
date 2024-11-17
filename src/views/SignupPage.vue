@@ -33,6 +33,8 @@ export default {
 </script>
 
 <style>
+
+/* YESS & SELECTOR GOD BLESS VUE */
 .signup-form-container {
   background: #eaf2dd;
   width: fit-content;
@@ -46,11 +48,20 @@ form#signup-form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  & > input.signup-button {
+    padding: 0.2rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: .6rem;
+    background: #87b3e9;
+  }
 }
 
+/* form is nested inside container grid, needs gap aswell */
 .input-grid,
 form#signup-form {
-  gap: .4rem;
+  gap: .6rem;
 }
 
 .input-grid {
@@ -58,27 +69,29 @@ form#signup-form {
   width: 100%;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 2fr;
+
+  & > label {
+    text-align: right;
+    align-content: center;
+  }
+
+  & > input {
+    text-align: center;
+    padding: .4rem .4rem;
+    border: none;
+    border-radius: .4rem;
+    font-size: 1rem;
+  }
 }
 
-.input-grid > label {
-  text-align: right;
-  align-content: center;
-}
+/* change grid layout when in mobile view */
+@media screen and ( max-width: 360px ) {
+  .input-grid {
+    grid-template-columns: 1fr;
 
-.input-grid > input {
-  text-align: center;
-  padding: .4rem .4rem;
-  border: none;
-  border-radius: .4rem;
-  font-size: 1rem;
+    & > label {
+      text-align: center;
+    }
+  }
 }
-
-form#signup-form > input.signup-button {
-  padding: 0.2rem 1rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: .6rem;
-  background: #87b3e9;
-}
-
 </style>

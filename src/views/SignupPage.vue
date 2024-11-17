@@ -3,7 +3,7 @@
     <HeaderComponent />
     <!-- signup form -->
     <div class="signup-form-container">
-      <form id="signup-form">
+      <form id="signup-form" action="/">
         <div class="input-grid">
           <label for="email">Email</label>          
           <input type="text" id="email" name="email" placeholder="Email" required>

@@ -3,8 +3,7 @@
     <HeaderComponent />
 
     <div class="main-content">
-      <!-- #todo add reset likes button here (Task 4.3) -->
-
+      
       <div class="container">
         <PostComponent
           v-for="(post, index) in posts"

@@ -1,6 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import MainPage from '../views/MainPage.vue';
 import SignupPage from '../views/SignupPage.vue';
+import LoginPage from '../views/LoginPage.vue';
+
+
 const routes = [
   {
     path: '/',
@@ -11,6 +14,11 @@ const routes = [
     path: '/signup',
     name: 'SignupPage',
     component: SignupPage,
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage,
   },
 ];
 

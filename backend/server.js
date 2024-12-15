@@ -39,6 +39,9 @@ const createTables = async () => {
       );
     `);
 
+    
+
+
     console.log("tables are ready");
   } catch (err) {
     console.error(err);
@@ -52,7 +55,7 @@ const JWT_SECRET = "YOUR_JWT_SECRET_KEY_HERE";
 
 app.post('/api/signup', async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(email, password)
   if (!email || !password) {
     return res.status(400).json({ error: "email and password are required." });
   }
@@ -92,6 +95,15 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
+app.post('/api/logout', (req, res) => {
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: 'strict', 
+    secure: false,
+  });
+  res.status(200).json({ message: "Logged out successfully" });
+});
+
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -129,6 +141,47 @@ app.post('/api/login', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "internal server error" });
+  }
+});
+
+app.post('/api/posts', async(req, res) => {
+  try {
+      console.log("a post request has arrived");
+      const post = req.body;
+      const newpost = await pool.query(
+          "INSERT INTO posts(body) values ($1)    RETURNING*", [post.body]
+// $1, $2, $3 are mapped to the first, second and third element of the passed array (post.title, post.body, post.urllink) 
+// The RETURNING keyword in PostgreSQL allows returning a value from the insert or update statement.
+// using "*" after the RETURNING keyword in PostgreSQL, will return everything
+      );
+      res.status(201).json(newpost.rows[0]);
+  } catch (err) {
+      console.error(err.message);
+  }
+});
+
+app.get("/api/posts", async (req, res) => {
+  try{
+    console.log("Fetching all posts");
+    const posts = await pool.query(
+      "SELECT * FROM posts"
+  );
+    console.log(posts)
+    res.status(200).json({"posts": posts.rows});
+  }catch(err){
+    console.error(err)
+    res.status(404).json({error: "Couldn't fetch posts from db"})
+  }
+})
+
+app.delete('/api/posts', async(req, res) => {
+  try {
+    console.log("Delete all posts request has arrived");
+    const deleteAll = await pool.query("DELETE FROM posts");
+    res.status(200).json({message: "All posts deleted successfully"});
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({error: "Failed to delete all posts"});
   }
 });
 

@@ -120,6 +120,10 @@ form#signup-form {
     cursor: pointer;
     margin-top: 1rem;
   }
+  & > input.signup-button:hover {
+    background-color: #2a2b29;
+    transform: scale(1.05);
+  }
 }
 
 .input-grid,

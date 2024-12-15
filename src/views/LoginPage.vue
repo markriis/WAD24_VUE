@@ -5,10 +5,10 @@
         <div class="signup-form-container">
           <form id="login-form" @submit.prevent="handleLogin">
             <div class="input-grid">
-              <label for="email">email</label>
+              <label for="email">Email</label>
               <input v-model="email" type="email" id="email" placeholder="email" required>
   
-              <label for="password">password</label>
+              <label for="password">Password</label>
               <input v-model="password" type="password" id="password" placeholder="password" required>
             </div>
   
@@ -100,6 +100,12 @@ form#login-form {
     cursor: pointer;
     margin-top: 1rem;
   }
+  & > input.signup-button:hover {
+    background-color: #2a2b29;
+    transform: scale(1.05);
+  }
+  
+
 }
 
 .input-grid,

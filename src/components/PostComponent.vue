@@ -1,17 +1,16 @@
 <template>
     <div class="post">
       <div class="post-header">
-        <img :src="post.profileIcon" alt="User Profile" />
-        <span class="post-date">{{ post.createTime }}</span>
+        <span class="post-date">{{  formatDate(post.date) }}</span>
       </div>
-      <img v-if="post.imageURL" :src="post.imageURL" alt="Post Image" class="post-image" />
-      <p>{{ post.content }}</p>
-
+      <p>{{ post.body }}</p>
+<!--
       <div class="like-section">
-          <img :src=post.likeIcon alt="Like Icon" @click="likePost">
+          <img :src=post.likeIcon alt="Like Icon" @click="likePost">-->
           <!-- ternary to add an s to like if the like count isnt 1 -->
-          <p>{{ post.likes }} like{{ post.likes === 1 ? '' : 's' }}</p>
+         <!-- <p>{{ post.likes }} like{{ post.likes === 1 ? '' : 's' }}</p>
       </div>
+    -->
     </div>
   </template>
   
@@ -20,11 +19,15 @@
     name: 'PostComponent',
     props: {
       post: Object,
-      postId: Number
     },
     methods: {
+      /*
       likePost( ) {
-        this.$store.dispatch( "likePostAct", { postId : this.postId } )
+        this.likes += 1;
+      }, 
+      */
+      formatDate(date) {
+        return new Date(date).toLocaleDateString();
       }
     }
   };
@@ -40,12 +43,13 @@
         text-align: left;
       }
 
-      & > .like-section {
-        display: flex;
-        justify-content: space-between;
+      & > post-date {
+        text-align: right;
       }
     }
 
     
   </style>
+
+
   

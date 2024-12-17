@@ -17,7 +17,7 @@ export default createStore({
   actions: {
     async logout({ commit }) {
       try {
-        const response = await fetch('https://localhost:3000/api/logout', {
+        const response = await fetch('http://localhost:3000/api/logout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include', //send cookies with the request
@@ -80,6 +80,101 @@ export default createStore({
     } catch (error) {
       console.error('Error deleting posts: ', error.message);
     }
-  }
-},
+  },
+    async getPost({ commit }, { id }) {
+      console.log( id )
+      if ( !id )
+        return null;
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/post?id=${ id }`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const res = await response.json( );
+
+        if (response.ok) {
+          console.log( res.post )
+          return {
+            ok : true,
+            post : res.post
+          };
+        } else {
+          console.log("Failed to get post " + res.error );
+          return {
+            ok : false,
+            error : res.error
+          }
+        }
+      } catch ( e ) {
+        console.error("Error during getting post:", error.message);
+      }
+    },
+    async updatePost({ commit }, { id, newbody }) {
+      if ( !id || !newbody )
+        return null;
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/post`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify( {
+            id : id,
+            body : newbody
+          } ),
+        });
+
+        if (response.ok) {
+          return true;
+        } else {
+          const res = await response.json( );
+          console.log( `Failed to update post ${ res.error }` );
+          return false;
+        }
+      } catch ( e ) {
+        console.error("Error during getting post:", e.message);
+      }
+    },
+    async deletePost({ commit }, { id }) {
+      if ( !id ) {
+        return {
+          ok: false,
+          error: "No ID provided."
+        };
+      }
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/post`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify( {
+            id : id,
+          } ),
+        });
+
+        if (response.ok) {
+          console.log( 'del ok!' )
+          return {
+            ok : true,
+          };
+        } else {
+          console.log( response )
+          const res = await response.json( );
+          console.log( 1 )
+          console.log("Failed to get post " + res.error );
+          return {
+            ok : false,
+            error : res.error
+          }
+        }
+      } catch ( e ) {
+        console.error("Error during getting post:", e.message);
+        return {
+          ok : false,
+          error : "Couldn't delete post."
+        }
+      }
+    },
+
+  },
 });

@@ -6,16 +6,22 @@
           <form id="login-form" @submit.prevent="handleLogin">
             <div class="input-grid">
               <label for="email">Email</label>
-              <input v-model="email" type="email" id="email" placeholder="email" required>
+              <input v-model="email" type="email" id="email" placeholder="Email" required>
   
               <label for="password">Password</label>
-              <input v-model="password" type="password" id="password" placeholder="password" required>
+              <input v-model="password" type="password" id="password" placeholder="Password" required>
             </div>
-  
-            <input type="submit" class="signup-button" value="login">
+
+            <div class="login-or-signup">
+              <input type="submit" class="button" value="Login">
+              <p>or</p>
+              <router-link to="/signup" class="button">
+                Signup
+              </router-link>
+            </div>
           </form>
   
-          <p>don’t have an account? <router-link to="/signup">sign up here</router-link></p>
+<!--          <p>don’t have an account? <router-link to="/signup">sign up here</router-link></p>-->
         </div>
       </div>
         <FooterComponent />
@@ -90,22 +96,35 @@ form#login-form {
   justify-content: center;
   align-items: center;
 
-  & > input.signup-button {
-    color: rgb(225, 223, 222);
-    padding: 0.8rem 2rem;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: .6rem;
-    background: #484946;
-    cursor: pointer;
-    margin-top: 1rem;
-  }
-  & > input.signup-button:hover {
-    background-color: #2a2b29;
-    transform: scale(1.05);
-  }
-  
+  & > .login-or-signup {
+    display: flex;
+    align-items: center;
 
+    margin-top: 1rem;
+
+    & > p {
+      font-size: 1.2rem;
+      padding: 0 .6rem;
+      height: fit-content;
+    }
+
+    & > .button {
+      color: rgb(225, 223, 222);
+      padding: 0.8rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: .6rem;
+      background: #484946;
+      cursor: pointer;
+
+      text-decoration: none;
+    }
+
+    & > .button:hover {
+      background-color: #2a2b29;
+      transform: scale(1.05);
+    }
+  }
 }
 
 .input-grid,

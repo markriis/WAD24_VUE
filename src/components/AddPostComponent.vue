@@ -47,7 +47,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  padding: 2rem 0;
   background-color: #ececec; 
   border: 2px solid #b5a3a3;
 }

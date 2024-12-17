@@ -7,6 +7,7 @@
       <router-link to="/">Main Page</router-link>
       <router-link to="/signup">Signup Page</router-link>
       <router-link to="/login">Login Page</router-link>
+      <router-link to="/about_us">About Us</router-link>
 
     </nav>
   </header>

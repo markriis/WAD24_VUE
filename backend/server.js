@@ -96,6 +96,7 @@ app.post('/api/signup', async (req, res) => {
 });
 
 app.post('/api/logout', (req, res) => {
+  console.log( `-> /api/logout` )
   res.clearCookie('jwt', {
     httpOnly: true,
     sameSite: 'strict', 
@@ -164,7 +165,7 @@ app.get("/api/posts", async (req, res) => {
   try{
     console.log("Fetching all posts");
     const posts = await pool.query(
-      "SELECT * FROM posts"
+      "SELECT * FROM posts ORDER BY 3 desc"
   );
     console.log(posts)
     res.status(200).json({"posts": posts.rows});
@@ -185,10 +186,77 @@ app.delete('/api/posts', async(req, res) => {
   }
 });
 
+
+app.get("/api/post", async (req, res) => {
+  try{
+    const queryParams = new URLSearchParams( req.query );
+
+    const id = queryParams.get( 'id' );
+
+    if ( !id ) {
+      res.status( 400 ).json({ error: "Not Found." });
+      return;
+    }
+
+    const db_res = await pool.query( "SELECT * FROM posts where id = $1", [ id ] );
+
+    const post = db_res.rows[ 0 ];
+
+    if ( !post ) {
+      res.status( 400 ).json({ error: "Couldn't find post." });
+      return;
+    }
+
+    res.status(200).json({ "post": post });
+  }catch(err){
+    console.error(err)
+    res.status(404).json({error: "Couldn't find post."})
+  }
+})
+
+app.patch('/api/post', async (req, res) => {
+  try {
+    console.log(`a post udpdate request has arrived`);
+    console.log( req.body )
+
+    const post = req.body;
+    await pool.query(
+        "update posts set body = $2 where id = $1", [post.id, post.body]
+    );
+    res.status(202);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error : "Couldn't update post." })
+  }
+} );
+
+app.delete('/api/post', async (req, res) => {
+  try {
+    console.log(`a post deletion request has arrived`);
+    console.log( req.body )
+
+    const body = req.body;
+    await pool.query(
+        "delete from posts where id = $1", [body.id]
+    );
+    res.status(200).json( { status : "ok" } );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error : "Couldn't delete post." })
+  }
+} );
+
 // test endpoint to check server
 app.get('/api/test', (req, res) => {
   res.json({ message: 'backend is running!' });
 });
+
+app.get('/api/check_jwt', ( req, res ) => {
+  if ( req.cookies[ 'jwt' ] )
+    res.status( 200 ).json({ message: 'authed' });
+  else
+    res.status( 401 ).json({ error: "invalid token" });
+})
 
 app.listen(port, () => {
   console.log("server is listening on port " + port);

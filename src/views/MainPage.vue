@@ -16,12 +16,16 @@
         />
       </div>
     </div>
-    <button @click="goToAddPostPage">
-      Add Post
-    </button>
-    <button @click="deleteAllPosts">
-      Delete All
-    </button>
+
+    <div class="post-controls">
+      <button @click="goToAddPostPage">
+        Add Post
+      </button>
+      <button @click="deleteAllPosts">
+        Delete All
+      </button>
+    </div>
+
     <FooterComponent />
   </div>
 </template>
@@ -71,6 +75,15 @@ export default {
 </script>
 
 <style scoped>
+.post-controls {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 button {
   padding: 0.8rem 1.2rem;
   margin: 0.5rem;
